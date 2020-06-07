@@ -1,0 +1,17 @@
+﻿<div class="col-xl-4">
+    <h1>Cart</h1>
+
+
+
+    @foreach (var product in cart.Products)
+    {
+        <newShop.Pages.Components.ProductDetails product="product"></newShop.Pages.Components.ProductDetails>
+    }
+</div>
+
+<p>Summary: $@cart.Price</p>
+
+
+@code {
+    newShop.Data.Cart cart = new newShop.Data.Cart();
+}

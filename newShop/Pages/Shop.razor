@@ -1,0 +1,44 @@
+﻿@page "/shop"
+@using newShop.Services;
+@using newShop.Data;
+@inherits OwningComponentBase<ProductService>
+
+
+<h3>Shop</h3>
+<button class="btn-info" onclick="getProducts">Get products</button>
+
+
+<div class="row">
+
+    @foreach (var product in listProduct)
+    {
+        <newShop.Pages.Components.ProductDetails product="product"></newShop.Pages.Components.ProductDetails>
+        <button class="btn-primary" @onclick="@(() => buyCart.Add(product))">Buy</button>
+    }
+
+</div>
+
+<h3>Cart</h3>
+<p>Summary: $@value</p>
+<div class="row">
+
+    @foreach (var product in buyCart)
+    {
+        <newShop.Pages.Components.ProductDetails product="product"></newShop.Pages.Components.ProductDetails>
+    }
+
+
+
+</div>
+
+
+@code {
+        List<Product> listProduct = new List<Product>();
+        List<Product> buyCart = new List<Product>();
+    public void getProducts()
+    {
+        listProduct = Service.GetProducts();
+    }
+
+    int value => buyCart.Sum(p => p.Price);
+}
